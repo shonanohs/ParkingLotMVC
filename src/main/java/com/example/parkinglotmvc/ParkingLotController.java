@@ -1,6 +1,8 @@
 package com.example.parkinglotmvc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -20,16 +22,21 @@ public class ParkingLotController {
         // Set up button action event
         view.getCalculateButton().setOnAction((event) -> {
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-                LocalDateTime entryTime = LocalDateTime.parse(view.getEntryField(), formatter);
-                LocalDateTime exitTime = LocalDateTime.parse(view.getExitField(), formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDate entryDate = view.getEntryDate();
+                LocalTime entryTime = LocalTime.parse(view.getEntryTime(), formatter);
+                LocalDate exitDate = view.getExitDate();
+                LocalTime exitTime = LocalTime.parse(view.getExitTime(), formatter);
 
-                if (exitTime.isBefore(entryTime)) {
+                LocalDateTime entryDateTime = entryTime.atDate(entryDate);
+                LocalDateTime exitDateTime = exitTime.atDate(exitDate);
+
+                if (exitDateTime.isBefore(entryDateTime)) {
                     view.displayResult("Exit date/time cannot be before entry date/time.");
                     return;
                 }
 
-                ticket = new Ticket(entryTime, exitTime);
+                ticket = new Ticket(entryDateTime, exitDateTime);
                 ticket.calculateDuration();
 
                 factory = new ParkingLotFactory();
