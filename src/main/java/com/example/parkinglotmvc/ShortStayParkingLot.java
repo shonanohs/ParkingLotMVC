@@ -8,21 +8,26 @@ public class ShortStayParkingLot implements IParkingLot {
         int hours = ticket.getHours();
         int minutes = ticket.getMinutes();
 
+        int hourlyCharge = 2;
+        int dailyFine = 50;
+        int stayDurationCap = 4;
+        int minsFreeOfCharge = 30;
+
         int fee = 0;
 
-        if (days == 0 && hours == 0 && minutes <= 30) {
+        if (days == 0 && hours == 0 && minutes <= minsFreeOfCharge) {
             return fee;
         }
 
-        fee+= days*2*24;
-        fee+= hours*2;
+        fee+= days*hourlyCharge*24;
+        fee+= hours*hourlyCharge;
 
         if(minutes > 0) {
-            fee+= 2;
+            fee+= hourlyCharge;
         }
 
-        if (days > 0 || (hours > 4 && days == 0)) {
-            fee+=50*days;
+        if (days > 0 || (hours > stayDurationCap && days == 0)) {
+            fee+=dailyFine*days;
         }
 
         return fee;

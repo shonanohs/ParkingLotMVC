@@ -8,12 +8,14 @@ public class MultiStoreyParkingLot implements IParkingLot {
         int hours = ticket.getHours();
         int minutes = ticket.getMinutes();
 
-        int fee = 5;
+        int flatFee = 5;
+        int hourlyCharge = 2;
 
-        fee+= days*3*24;
-        fee += hours*3;
+        int fee = flatFee;
+        fee+= days*hourlyCharge*24;
+        fee += hours*hourlyCharge;
             if (minutes > 0) {
-                fee+=3;
+                fee+=hourlyCharge;
             }
         return fee;
     }

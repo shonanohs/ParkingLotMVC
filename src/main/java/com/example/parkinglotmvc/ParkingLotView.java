@@ -62,9 +62,9 @@ public class ParkingLotView {
                 Minutes round up (i.e. 2 hours 1 minute = £6 (3 hour charge))""");
         airportTip = new Tooltip("""
                 Price: £7 per hour up to 7 hours
-                £50 for >7 hours
-                Minutes round up (i.e. 2 hours 1 minute = £6 (3 hour charge))""");
-        multiStoreyTip = new Tooltip("Price: £5 flat fee + £3 per hour add-on\n" +
+                £50 for >7 hours (per day)
+                Minutes round up (i.e. 2 hours 1 minute = £21 (3 hour charge))""");
+        multiStoreyTip = new Tooltip("Price: £5 flat fee + £2 per hour add-on\n" +
                 "Minutes round up (i.e. 2 hours 1 minute = £6 (3 hour charge))");
     }
 

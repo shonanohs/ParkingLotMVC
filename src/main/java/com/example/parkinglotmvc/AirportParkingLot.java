@@ -8,18 +8,22 @@ public class AirportParkingLot implements IParkingLot {
         int hours = ticket.getHours();
         int minutes = ticket.getMinutes();
 
-        int fee = 0;
-        fee+= days*50;
+        int hourlyCharge = 7;
+        int dailyCharge = 50;
+        int hourlyChargeCap = 7;
 
-            if (hours > 7 || (hours == 7 && minutes > 0)) {
-                fee += 50;
+        int fee = 0;
+        fee+= days*dailyCharge;
+
+            if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
+                fee += dailyCharge;
             }
 
             else {
-                fee += hours*7;
+                fee += hours*hourlyCharge;
 
                 if (minutes > 0) {
-                    fee+=7;
+                    fee+=hourlyCharge;
                 }
             }
         return fee;

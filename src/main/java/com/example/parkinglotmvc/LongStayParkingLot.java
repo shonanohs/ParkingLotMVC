@@ -8,22 +8,27 @@ public class LongStayParkingLot implements IParkingLot {
         int hours = ticket.getHours();
         int minutes = ticket.getMinutes();
 
+        int hourlyCharge = 2;
+        int maxDailyCharge = 15;
+        int minsFreeOfCharge = 30;
+        int hourlyChargeCap = 7;
+
         int fee = 0;
-        if (days == 0 && hours == 0 && minutes <= 30) {
+        if (days == 0 && hours == 0 && minutes <= minsFreeOfCharge) {
             return fee;
         }
         else {
-            fee+= days*15;
+            fee+= days*maxDailyCharge;
 
-            if (hours > 7 || (hours == 7 && minutes > 0)) {
-                fee += 15;
+            if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
+                fee += maxDailyCharge;
             }
 
             else {
-                fee += hours*2;
+                fee += hours*hourlyCharge;
 
                 if (minutes > 0) {
-                    fee+=2;
+                    fee+=hourlyCharge;
                 }
             }
         }
