@@ -1,7 +1,8 @@
 package com.example.parkinglotmvc;
 
 public class ShortStayParkingLot implements IParkingLot {
-    // £2 per hour, £50 fine (per day) + standard hourly charge if you stay for more than 4 hours, minutes round up, no charge for 30 mins or less
+    // £2 per hour, £50 fine (per day) + standard hourly charge if you stay for more than 4 hours,
+    // minutes round up, no charge for 30 mins or less
     @Override
     public int calculateFee(Ticket ticket) {
         int days = ticket.getDays();

@@ -14,47 +14,37 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 public class ParkingLotView {
+    // Buttons
     private Button calculateButton;
-    private RadioButton longStayButton;
-    private RadioButton shortStayButton;
-    private RadioButton airportButton;
-    private RadioButton multiStoreyButton;
+    private RadioButton longStayButton, shortStayButton, airportButton, multiStoreyButton;
     private ToggleGroup tg;
-    private Label entryLabel;
-    private Label exitLabel;
-    private Label resultLabel;
-    private DatePicker entryPicker;
-    private DatePicker exitPicker;
-    private ComboBox<String> entryHoursBox;
-    private ComboBox<String> entryMinsBox;
-    private ComboBox<String> exitHoursBox;
-    private ComboBox<String> exitMinsBox;
+    private Tooltip longStayTip, shortStayTip, airportTip, multiStoreyTip;
+
+    // Text/labels
+    private Label entryLabel, exitLabel, resultLabel;
     private Text instructions;
-    private Tooltip longStayTip;
-    private Tooltip shortStayTip;
-    private Tooltip airportTip;
-    private Tooltip multiStoreyTip;
+
+    // Date/time fields
+    private DatePicker entryPicker, exitPicker;
+    private ComboBox<String> entryHoursBox, entryMinsBox, exitHoursBox, exitMinsBox;
+
 
     public ParkingLotView() {
-
-        initialiseUIComponents();
+        configureText();
+        configureTooltips();
+        configureButtons();
+        configureDateTimeFields();
     }
 
-    private void initialiseUIComponents() {
-        // Create UI Elements
-        calculateButton = new Button("Calculate Fee");
-        longStayButton = new RadioButton("Long stay parking");
-        shortStayButton = new RadioButton("Short stay parking");
-        airportButton = new RadioButton("Airport parking");
-        multiStoreyButton = new RadioButton("Multi-storey parking");
-        tg = new ToggleGroup();
-
+    private void configureText() {
         entryLabel = new Label("Entry time: ");
         exitLabel = new Label("Exit time: ");
         resultLabel = new Label();
+        instructions = new Text("Please enter the date/time you entered and exited\n" +
+                "and select the parking lot type.");
+    }
 
-        instructions = new Text("Please enter the date/time you entered and exited\nand select the parking lot type.");
-
+    private void configureTooltips() {
         longStayTip = new Tooltip("""
                 Price: £2 per hour
                 Max Daily Charge: £15
@@ -71,7 +61,9 @@ public class ParkingLotView {
                 Minutes round up (i.e. 2 hours 15 minutes = £21 (3 hour charge))""");
         multiStoreyTip = new Tooltip("Price: £5 flat fee + £2 per hour add-on\n" +
                 "Minutes round up (i.e. 2 hours 15 minutes = £6 (3 hour charge))");
+    }
 
+    private void configureDateTimeFields() {
         entryPicker = new DatePicker();
         exitPicker = new DatePicker();
 
@@ -87,6 +79,13 @@ public class ParkingLotView {
     }
 
     private void configureButtons() {
+        calculateButton = new Button("Calculate Fee");
+        longStayButton = new RadioButton("Long stay parking");
+        shortStayButton = new RadioButton("Short stay parking");
+        airportButton = new RadioButton("Airport parking");
+        multiStoreyButton = new RadioButton("Multi-storey parking");
+        tg = new ToggleGroup();
+
         longStayButton.setToggleGroup(tg);
         shortStayButton.setToggleGroup(tg);
         airportButton.setToggleGroup(tg);
@@ -100,14 +99,12 @@ public class ParkingLotView {
     }
 
     public void configureLayout(Stage stage) {
-        configureButtons();
-
         // Set up layout
         HBox entryHbox = new HBox(10, entryPicker, entryHoursBox, entryMinsBox);
         entryHbox.setAlignment(Pos.CENTER);
         HBox exitHbox = new HBox(10, exitPicker, exitHoursBox, exitMinsBox);
         exitHbox.setAlignment(Pos.CENTER);
-        VBox vbox = new VBox(10, instructions, entryLabel, entryHbox, exitLabel,
+        VBox vbox = new VBox(20, instructions, entryLabel, entryHbox, exitLabel,
                 exitHbox, shortStayButton, longStayButton, airportButton,
                 multiStoreyButton, calculateButton, resultLabel);
         vbox.setAlignment(Pos.CENTER);
@@ -135,11 +132,11 @@ public class ParkingLotView {
         return exitPicker.getValue();
     }
     public String getEntryTime(){
-        return (String) entryHoursBox.getValue() + entryMinsBox.getValue();
+        return entryHoursBox.getValue() + entryMinsBox.getValue();
     }
 
     public String getExitTime(){
-        return (String) exitHoursBox.getValue() + exitMinsBox.getValue();
+        return exitHoursBox.getValue() + exitMinsBox.getValue();
     }
     public Button getCalculateButton() {
         return calculateButton;

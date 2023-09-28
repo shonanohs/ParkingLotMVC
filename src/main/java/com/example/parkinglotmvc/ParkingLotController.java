@@ -22,6 +22,7 @@ public class ParkingLotController {
         // Set up button action event
         view.getCalculateButton().setOnAction((event) -> {
             try {
+                // Parse date/time inputs as LocalDateTime object
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                 LocalDate entryDate = view.getEntryDate();
                 LocalTime entryTime = LocalTime.parse(view.getEntryTime(), formatter);
@@ -36,9 +37,11 @@ public class ParkingLotController {
                     return;
                 }
 
+                // Calculate duration between entry/exit DateTimes
                 ticket = new Ticket(entryDateTime, exitDateTime);
                 ticket.calculateDuration();
 
+                // Calculate fee for given parking lot type
                 factory = new ParkingLotFactory();
                 parkingLot = factory.createParkingLot(view.getSelectedLotType());
                 String fee = String.valueOf(parkingLot.calculateFee(ticket));
@@ -46,8 +49,7 @@ public class ParkingLotController {
                 view.displayResult("Parking fee = £" + fee);
             }
             catch (DateTimeParseException dtpe) {
-                view.displayResult("Invalid input. Please enter the entry/exit date/time\nin " +
-                        "the following format: dd-MM-yyyy HH:mm");
+                view.displayResult("Invalid input. Please check date/time fields are selected.");
             }
         });
     }
