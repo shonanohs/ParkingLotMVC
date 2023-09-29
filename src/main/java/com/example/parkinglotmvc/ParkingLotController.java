@@ -8,13 +8,12 @@ import java.time.format.DateTimeParseException;
 
 public class ParkingLotController {
     private IParkingLot parkingLot;
-    private ParkingLotFactory factory;
+    private ParkingLotFactory factory = new ParkingLotFactory();
     private ParkingLotView view;
     private Ticket ticket;
 
     public ParkingLotController(ParkingLotView view) {
         this.view = view;
-
         configureCalculateButton();
     }
 
@@ -42,7 +41,6 @@ public class ParkingLotController {
                 ticket.calculateDuration();
 
                 // Calculate fee for given parking lot type
-                factory = new ParkingLotFactory();
                 parkingLot = factory.createParkingLot(view.getSelectedLotType());
                 String fee = String.valueOf(parkingLot.calculateFee(ticket));
 

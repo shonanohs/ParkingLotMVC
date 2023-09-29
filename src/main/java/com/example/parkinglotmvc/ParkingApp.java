@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 public class ParkingApp extends Application {
     private ParkingLotView view;
-    private ParkingLotController controller;
 
     public ParkingApp() {
     }
@@ -16,7 +15,7 @@ public class ParkingApp extends Application {
         view = new ParkingLotView();
         view.configureLayout(stage);
 
-        controller = new ParkingLotController(view);
+        new ParkingLotController(view);
     }
 
     public static void main(String[] args) {

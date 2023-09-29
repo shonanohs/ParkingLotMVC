@@ -14,9 +14,10 @@ public class MultiStoreyParkingLot implements IParkingLot {
         int fee = flatFee;
         fee+= days*hourlyCharge*24;
         fee += hours*hourlyCharge;
-            if (minutes > 0) {
-                fee+=hourlyCharge;
-            }
+        if (minutes > 0) {
+            fee+=hourlyCharge;
+        }
+
         return fee;
     }
 }

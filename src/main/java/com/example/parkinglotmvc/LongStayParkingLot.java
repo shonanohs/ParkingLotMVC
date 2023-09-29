@@ -32,6 +32,7 @@ public class LongStayParkingLot implements IParkingLot {
                 }
             }
         }
+
         return fee;
     }
 }

@@ -15,17 +15,18 @@ public class AirportParkingLot implements IParkingLot {
         int fee = 0;
         fee+= days*dailyCharge;
 
-            if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
-                fee += dailyCharge;
-            }
+        if (hours > hourlyChargeCap || (hours == hourlyChargeCap && minutes > 0)) {
+            fee += dailyCharge;
+        }
 
-            else {
-                fee += hours*hourlyCharge;
+        else {
+            fee += hours*hourlyCharge;
 
-                if (minutes > 0) {
-                    fee+=hourlyCharge;
-                }
+            if (minutes > 0) {
+                fee+=hourlyCharge;
             }
+        }
+
         return fee;
     }
 }
